@@ -49,7 +49,7 @@ async def ai_chat(data: AIIn):
     try:
         # Poziv prema Gemini modelu
         response = client.models.generate_content(
-           model="gemini-1.5-flash", 
+          model="gemini-2.0-flash", , 
             contents=data.message,
         )
         return {"reply": response.text}
