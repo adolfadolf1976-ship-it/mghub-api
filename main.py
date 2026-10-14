@@ -1,4 +1,4 @@
-import os
+uimport os
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
@@ -49,7 +49,7 @@ async def ai_chat(data: AIIn):
     try:
         # Poziv prema Gemini modelu
         response = client.models.generate_content(
-         model="gemini-3.8-flash",
+         model="gemini-pro",
             contents=data.message,
         )
         return {"reply": response.text}
