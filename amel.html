@@ -2,283 +2,88 @@
 <html lang="bs">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
-<title>MgHub 3.1 Ultra</title>
-<meta name="theme-color" content="#0d1117">
-<link rel="manifest" href="manifest.json">
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MgHub</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<!-- OFFLINE -->
-<div id="offline-banner" class="offline-banner hidden">
-  <i class="fa-solid fa-triangle-exclamation"></i>
-  <span>Nema internet veze.</span>
-</div>
-
-<!-- WELCOME -->
-<div id="screen-welcome" class="auth-screen">
+<div id="welcome" class="auth-screen">
   <i class="fa-solid fa-car-side welcome-icon"></i>
   <h2>Dobrodošli u MgHub</h2>
-  <p>Vaš digitalni auto-moto hub. Sve na jednom mjestu.</p>
-  <button class="btn btn-primary btn-full" onclick="goHome()">Započni</button>
-  <button class="btn btn-ghost btn-full mt-2" onclick="goHome()">Preskoči</button>
+  <p>Vaš digitalni auto-moto hub.</p>
+  <button class="btn btn-primary btn-full" onclick="home()">Započni</button>
 </div>
 
-<!-- MAIN APP -->
-<div id="main-app" class="hidden">
+<div id="app" class="hidden">
   <header class="app-header">
-    <div class="logo-area">
-      <i class="fa-solid fa-shield-halved" style="color:#FF6A3D"></i>
-      Mg<span>Hub</span> 3.1 <small>Ultra</small>
-    </div>
-    <div class="header-icons">
-      <i class="fa-solid fa-bell bell-icon" onclick="openModal('notificationModal')">
-        <span class="bell-badge">2</span>
-      </i>
-      <img src="https://i.pravatar.cc/100?img=11" class="avatar">
-    </div>
+    <div class="logo-area"><i class="fa-solid fa-shield-halved" style="color:#FF6A3D"></i> Mg<span>Hub</span> 3.1</div>
   </header>
 
   <main class="app-content">
-    <section id="screen-home" class="screen active">
-      <div class="section-header">
-        <h2>Otvoreni prozori <span class="count-badge">4</span></h2>
-      </div>
+    <div class="section-header"><h2>Otvoreni prozori <span class="count-badge">4</span></h2></div>
 
-      <div class="bento-grid">
-        <!-- Kartica 1 -->
-        <div class="card bento-card">
-          <div class="card-header">
-            <div class="card-title"><i class="fa-solid fa-wallet"></i> Kripto Novčanik</div>
-          </div>
-          <div class="icon-grid">
-            <div class="icon-item"><div class="icon-circle"><i class="fa-solid fa-car"></i></div><span>Automobili</span></div>
-            <div class="icon-item"><div class="icon-circle"><i class="fa-solid fa-motorcycle"></i></div><span>Motocikli</span></div>
-            <div class="icon-item"><div class="icon-circle"><i class="fa-solid fa-truck"></i></div><span>Teretni</span></div>
-            <div class="icon-item"><div class="icon-circle"><i class="fa-solid fa-tractor"></i></div><span>Agro</span></div>
-            <div class="icon-item"><div class="icon-circle"><i class="fa-solid fa-gears"></i></div><span>Dijelovi</span></div>
-            <div class="icon-item"><div class="icon-circle"><i class="fa-solid fa-screwdriver-wrench"></i></div><span>Servis</span></div>
-          </div>
-        </div>
-
-        <!-- Kartica 2 -->
-        <div class="card bento-card">
-          <div class="card-header">
-            <div class="card-title"><i class="fa-brands fa-bitcoin"></i> Kripto</div>
-          </div>
-          <div class="balance-large">4,850 <span>KM</span></div>
-          <div class="crypto-row">
-            <span>BTC <b style="color:#22D6A4">+2.4%</b></span>
-            <span>ETH <b style="color:#F85149">-0.8%</b></span>
-          </div>
-          <div class="chart-mini"><canvas id="cryptoMiniChart" height="35"></canvas></div>
-        </div>
-
-        <!-- Kartica 3 (wide) -->
-        <div class="card bento-card wide">
-          <div class="card-header">
-            <div class="card-title"><i class="fa-solid fa-coins"></i> Novčanik i Investicije</div>
-          </div>
-          <div class="flex-between">
-            <div>
-              <div class="label-soft">Aggregate balance</div>
-              <div class="balance-large">4,850,00 <span>KM</span></div>
-            </div>
-            <div class="quick-actions-row">
-              <div class="quick-icon"><i class="fa-solid fa-qrcode"></i></div>
-              <div class="quick-icon"><i class="fa-solid fa-money-bill"></i></div>
-              <div class="quick-icon"><i class="fa-solid fa-chart-pie"></i></div>
-            </div>
-          </div>
-          <div class="chart-main"><canvas id="homeWalletChart" height="45"></canvas></div>
-          <div class="chart-legend">
-            <span><span class="dot orange"></span> Spending</span>
-            <span><span class="dot green"></span> Investments</span>
-          </div>
-        </div>
-
-        <!-- Kartica 4 -->
-        <div class="card bento-card">
-          <div class="card-header">
-            <div class="card-title"><i class="fa-solid fa-chart-simple"></i> Analitika</div>
-          </div>
-          <div class="donut-wrapper"><canvas id="analyticsDonut" height="70"></canvas></div>
-          <div class="chart-legend donut-legend">
-            <span><span class="dot orange"></span> Gorivo</span>
-            <span><span class="dot green"></span> Dijelovi</span>
-          </div>
-        </div>
-
-        <!-- Kartica 5 -->
-        <div class="card bento-card">
-          <div class="card-header">
-            <div class="card-title"><i class="fa-solid fa-shield"></i> Zaštita</div>
-          </div>
-          <div class="fingerprint-wrapper">
-            <i class="fa-solid fa-fingerprint fingerprint-icon"></i>
-            <span class="fingerprint-label">AI Štit aktivan</span>
-          </div>
-          <div class="toggle-row"><span>AI Štit</span><div class="toggle-switch active"></div></div>
-          <div class="toggle-row"><span>Sit aktivan</span><div class="toggle-switch active"></div></div>
-        </div>
-
-        <!-- Kartica 6 (wide) -->
-        <div class="card bento-card wide">
-          <div class="card-header">
-            <div class="card-title"><i class="fa-solid fa-arrow-right-arrow-left"></i> Transakcije</div>
-          </div>
-          <div class="transaction-list">
-            <div class="transaction-item">
-              <div class="tx-icon minus"><i class="fa-solid fa-arrow-up"></i></div>
-              <div class="tx-info"><span class="tx-name">Michelin guma</span><span class="tx-date">Danas, 14:20</span></div>
-              <span class="tx-amount minus">-220,00 KM</span>
-            </div>
-            <div class="transaction-item">
-              <div class="tx-icon plus"><i class="fa-solid fa-arrow-down"></i></div>
-              <div class="tx-info"><span class="tx-name">Uplata - prodaja</span><span class="tx-date">Jučer, 09:15</span></div>
-              <span class="tx-amount plus">+450,00 KM</span>
-            </div>
-          </div>
+    <div class="bento-grid">
+      <div class="card bento-card">
+        <div class="card-title"><i class="fa-solid fa-wallet"></i> Novčanik</div>
+        <div class="icon-grid">
+          <div class="icon-item"><div class="icon-circle"><i class="fa-solid fa-car"></i></div><span>Auti</span></div>
+          <div class="icon-item"><div class="icon-circle"><i class="fa-solid fa-motorcycle"></i></div><span>Moto</span></div>
+          <div class="icon-item"><div class="icon-circle"><i class="fa-solid fa-truck"></i></div><span>Teretni</span></div>
+          <div class="icon-item"><div class="icon-circle"><i class="fa-solid fa-tractor"></i></div><span>Agro</span></div>
+          <div class="icon-item"><div class="icon-circle"><i class="fa-solid fa-gears"></i></div><span>Dijelovi</span></div>
+          <div class="icon-item"><div class="icon-circle"><i class="fa-solid fa-screwdriver-wrench"></i></div><span>Servis</span></div>
         </div>
       </div>
 
-      <div class="ai-floating-wrapper">
-        <div class="ai-central-btn" onclick="openAI()"><i class="fa-solid fa-robot"></i></div>
+      <div class="card bento-card">
+        <div class="card-title"><i class="fa-brands fa-bitcoin"></i> Kripto</div>
+        <div class="balance-large">4,850 <span>KM</span></div>
+        <div class="crypto-row"><span>BTC <b style="color:#22D6A4">+2.4%</b></span><span>ETH <b style="color:#F85149">-0.8%</b></span></div>
       </div>
-    </section>
+
+      <div class="card bento-card wide">
+        <div class="card-title"><i class="fa-solid fa-coins"></i> Novčanik i Investicije</div>
+        <div class="label-soft">Aggregate balance</div>
+        <div class="balance-large">4,850,00 <span>KM</span></div>
+      </div>
+
+      <div class="card bento-card">
+        <div class="card-title"><i class="fa-solid fa-shield"></i> Zaštita</div>
+        <div class="fingerprint-wrapper">
+          <i class="fa-solid fa-fingerprint fingerprint-icon"></i>
+          <span class="fingerprint-label">AI Štit aktivan</span>
+        </div>
+      </div>
+
+      <div class="card bento-card wide">
+        <div class="card-title"><i class="fa-solid fa-arrow-right-arrow-left"></i> Transakcije</div>
+        <div class="transaction-item">
+          <div class="tx-icon minus"><i class="fa-solid fa-arrow-up"></i></div>
+          <div class="tx-info"><span class="tx-name">Michelin guma</span><span class="tx-date">Danas</span></div>
+          <span class="tx-amount minus">-220 KM</span>
+        </div>
+      </div>
+    </div>
   </main>
 
   <nav class="bottom-nav">
-    <button class="nav-item active"><i class="fa-solid fa-house"></i><span>Naslovnica</span></button>
-    <button class="nav-item"><i class="fa-solid fa-cart-shopping"></i><span>Trgovina</span></button>
-    <button class="nav-item ai-btn" onclick="openAI()"><div class="ai-btn-inner"><i class="fa-solid fa-robot"></i></div><span>AI</span></button>
-    <button class="nav-item"><i class="fa-solid fa-wallet"></i><span>Novčanik</span></button>
-    <button class="nav-item"><i class="fa-solid fa-user-tie"></i><span>Profil</span></button>
+    <button class="nav-item active"><i class="fa-solid fa-house"></i><span>Home</span></button>
+    <button class="nav-item"><i class="fa-solid fa-cart-shopping"></i><span>Shop</span></button>
+    <button class="nav-item ai-btn"><div class="ai-btn-inner"><i class="fa-solid fa-robot"></i></div></button>
+    <button class="nav-item"><i class="fa-solid fa-wallet"></i><span>Wallet</span></button>
+    <button class="nav-item"><i class="fa-solid fa-user"></i><span>Profil</span></button>
   </nav>
 </div>
 
-<!-- AI OVERLAY -->
-<div class="ai-overlay" id="aiOverlay">
-  <div class="ai-overlay-close" onclick="closeAI()"><i class="fa-solid fa-xmark"></i></div>
-  <div class="ai-overlay-content">
-    <div class="ai-bubble" id="aiBubble">Pritisnite i recite upit...</div>
-    <div class="ai-wave-large">
-      <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
-      <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
-    </div>
-    <div class="ai-status-text">Slušam vas...</div>
-  </div>
-  <button class="ai-close-btn" onclick="closeAI()"><i class="fa-solid fa-microphone-slash"></i> Zatvori</button>
-</div>
-
-<!-- MODAL -->
-<div class="modal" id="notificationModal">
-  <div class="modal-content">
-    <h3><i class="fa-solid fa-bell"></i> Obavještenja</h3>
-    <p class="muted">Nema novih obavještenja.</p>
-    <button class="btn btn-primary btn-full mt-2" onclick="closeModal('notificationModal')">Zatvori</button>
-  </div>
-</div>
-
-<!-- JAVASCRIPT - direktno u HTML-u -->
 <script>
-function goHome() {
-  document.getElementById('screen-welcome').classList.add('hidden');
-  document.getElementById('main-app').classList.remove('hidden');
-  setTimeout(initCharts, 100);
+function home() {
+  document.getElementById('welcome').classList.add('hidden');
+  document.getElementById('app').classList.remove('hidden');
 }
-
-function openAI() {
-  document.getElementById('aiOverlay').classList.add('active');
-}
-
-function closeAI() {
-  document.getElementById('aiOverlay').classList.remove('active');
-}
-
-function openModal(id) {
-  document.getElementById(id).classList.add('active');
-}
-
-function closeModal(id) {
-  document.getElementById(id).classList.remove('active');
-}
-
-function initCharts() {
-  if (typeof Chart === 'undefined') return;
-
-  var c1 = document.getElementById('homeWalletChart');
-  if (c1 && !c1.dataset.done) {
-    c1.dataset.done = '1';
-    new Chart(c1, {
-      type: 'line',
-      data: {
-        labels: ['Pon','Uto','Sri','Čet','Pet','Sub','Ned'],
-        datasets: [{
-          data: [12, 19, 3, 5, 2, 3, 10],
-          borderColor: '#22D6A4',
-          backgroundColor: 'rgba(34,214,164,0.1)',
-          borderWidth: 2, tension: 0.4, fill: true, pointRadius: 0
-        }]
-      },
-      options: { responsive: true, maintainAspectRatio: false,
-        plugins: { legend: { display: false } },
-        scales: { x: { display: false }, y: { display: false } } }
-    });
-  }
-
-  var c2 = document.getElementById('cryptoMiniChart');
-  if (c2 && !c2.dataset.done) {
-    c2.dataset.done = '1';
-    new Chart(c2, {
-      type: 'line',
-      data: {
-        labels: ['1','2','3','4','5','6','7'],
-        datasets: [{
-          data: [5, 15, 8, 20, 12, 25, 18],
-          borderColor: '#FF6A3D', borderWidth: 2,
-          tension: 0.4, pointRadius: 0
-        }]
-      },
-      options: { responsive: true, maintainAspectRatio: false,
-        plugins: { legend: { display: false } },
-        scales: { x: { display: false }, y: { display: false } } }
-    });
-  }
-
-  var c3 = document.getElementById('analyticsDonut');
-  if (c3 && !c3.dataset.done) {
-    c3.dataset.done = '1';
-    new Chart(c3, {
-      type: 'doughnut',
-      data: {
-        labels: ['Gorivo','Dijelovi','Servis'],
-        datasets: [{
-          data: [40, 30, 30],
-          backgroundColor: ['#FF6A3D','#22D6A4','#F0B429'],
-          borderWidth: 0
-        }]
-      },
-      options: { responsive: true, maintainAspectRatio: false,
-        cutout: '70%', plugins: { legend: { display: false } } }
-    });
-  }
-}
-
-// Online/Offline
-window.addEventListener('online', updateOnline);
-window.addEventListener('offline', updateOnline);
-function updateOnline() {
-  var b = document.getElementById('offline-banner');
-  if (navigator.onLine) b.classList.add('hidden');
-  else b.classList.remove('hidden');
-}
-updateOnline();
 </script>
 
 </body>
-  </html>
+</html>
