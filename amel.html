@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="bs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MgHub — Offline Test</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%;overflow-x:hidden}
+body{background:#0d1117;color:#e6edf3;font-family:'Manrope',Arial,sans-serif;font-size:14px;line-height:1.5;overflow-x:hidden;width:100%;max-width:100vw;min-height:100vh}
+h2{font-family:'Space Grotesk',Arial,sans-serif;font-weight:700;overflow-wrap:break-word}
+p{overflow-wrap:break-word}
+.auth-screen{position:fixed;inset:0;background:radial-gradient(circle at 50% 50%,#1a1f35,#0d1117);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 20px;text-align:center;gap:14px}
+.auth-screen h2{font-size:clamp(20px,6vw,22px);line-height:1.25;max-width:320px}
+.auth-screen p{font-size:clamp(11px,3.2vw,12px);color:#8b949e;max-width:300px;line-height:1.5}
+.welcome-icon{font-size:40px}
+.btn{font-family:inherit;border:none;cursor:pointer;width:100%;max-width:300px;padding:14px 20px;border-radius:14px;font-size:13px;font-weight:700}
+.btn-primary{background:linear-gradient(135deg,#FF6A3D,#ff8c5f);color:#fff}
+.btn-ghost{background:none;color:#8b949e;text-decoration:underline;padding:10px}
+.mt-2{margin-top:8px}
+</style>
+</head>
+<body>
+<div id="screen-welcome" class="auth-screen">
+  <div class="welcome-icon">🚗</div>
+  <h2>Dobrodošli u MgHub</h2>
+  <p>Vaš digitalni auto-moto hub. Sve na jednom mjestu.</p>
+  <button class="btn btn-primary" onclick="alert('Započni dirnuto')">Započni</button>
+  <button class="btn btn-ghost mt-2" onclick="alert('Preskoči dirnuto')">Preskoči</button>
+</div>
+</body>
+</html>
